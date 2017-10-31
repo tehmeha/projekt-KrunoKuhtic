@@ -1,4 +1,5 @@
 #include<iostream>
+#include<math.h>
 using namespace std;
 
 int main()
@@ -23,7 +24,7 @@ int main()
             }
             else
             {
-                 cout<< "O" << "   ";
+                 cout<< "-" << "   ";
             }
 
        }
