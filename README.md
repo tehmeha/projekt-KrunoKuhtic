@@ -1,5 +1,5 @@
 # naziv projekta
 - projetnik zadatak SSSS Tehmeha
-- team members: Ime Prezime
+- team members: Krunoslav Kuhtiæ, Antonio Kupres
 - programming language: C++
-- description: Opis
+- description: Igraè igra igru minolovac
