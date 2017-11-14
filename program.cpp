@@ -28,7 +28,7 @@ int main()
             else
             {
                 int broj_mina = fabs(polje2d[i-1][j-1] + polje2d[i][j-1] + polje2d[i+1][j-1] + polje2d[i-1][j] + polje2d[i+1][j] + polje2d[i-1][j+1] + polje2d[i][j+1] + polje2d[i+1][j+1]);
-                polje_br_mina[i][j];
+                polje_br_mina[i][j] = broj_mina;
                  cout<<broj_mina << "   ";
             }
 
@@ -67,7 +67,21 @@ int main()
            cout << endl;
        }
        int redak;
+       cout << "redak: ";
        cin >> redak;
+       int stupac;
+       cout << "stupac: ";
+       cin >> stupac;
+
+       if (polje2d[redak][stupac] == -1)
+       {
+           cout << "GAME OVER!!,sjebo si..."<< endl;
+           break;
+       }
+       else
+       {
+           polje2d[redak][stupac] = 1;
+       }
    }
 
 }
