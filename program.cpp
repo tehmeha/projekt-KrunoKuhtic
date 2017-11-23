@@ -79,14 +79,14 @@ int main ()
             cout << "GAME OVER!!" << endl;
             break;
         }
-       cout << "redak: ";
-       cin >> redak;
-       cout << "stupac: ";
-       cin >> stupac;
-       if( polje2d[redak][stupac] != -1)
-       {
+        cout << "redak: ";
+        cin >> redak;
+        cout << "stupac: ";
+        cin >> stupac;
+        if( polje2d[redak][stupac] != -1)
+        {
            polje2d[redak][stupac] = 1;
-       }
+        }
     }
 }
 
