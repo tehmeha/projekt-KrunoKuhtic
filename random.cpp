@@ -1,20 +1,18 @@
-#include<iostream>
-#include<time.h>
-#include<stdlib.h>
-#include<stdio.h>
-#include<iomanip>
-#include <time.h>
+#include <iostream>
+#include <math.h>
+#include <stdlib.h>
+#include <ctime>
 using namespace std;
 
 int generiraj_broj()
 {
     srand (time(0));
-    return rand () %10 + 1;
-}
+    return rand () %10+1;
 
-int main ()
+}
+int main()
 {
-    int polje2d [11][11];
+int polje2d [11][11];
     for (int i = 1; i < 11; i++)
     {
         for (int j = 1; j < 11; j++)
@@ -23,18 +21,18 @@ int main ()
         }
     }
 
-    int redak, stupac;
-    int postavljanje_mine = 0;
-    while (postavljanje_mine < 10)
+int redak, stupac;
+int postavljene_mine = 0;
+    while (postavljene_mine < 20)
     {
-        redak = generiraj_broj ();
-        stupac = generiraj_broj ();
+        redak = generiraj_broj();
+        stupac = generiraj_broj();
 
         if (polje2d[redak][stupac] != -1)
         {
             polje2d[redak][stupac] = -1;
-            postavljanje_mine ++;
-            cout << postavljanje_mine << endl;
+            postavljene_mine ++;
+            cout << postavljene_mine << endl;
         }
     }
         cout << endl;
@@ -55,7 +53,7 @@ int main ()
             else cout << i << "| ";
             for (int j = 1; j < 11; j++)
             {
-                if (polje2d[i][j] == -1)
+                if(polje2d[i][j] == -1)
                 {
                     cout << "+" << "   ";
                 }
@@ -66,7 +64,5 @@ int main ()
 
             }
             cout << endl;
-
         }
-
 }

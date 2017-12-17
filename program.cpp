@@ -1,21 +1,39 @@
 #include <iostream>
 #include <math.h>
+#include <random>
+#include <chrono>
 using namespace std;
 
 int main ()
 {
-    int polje2d [12][12] = {{0,0,0,0,0,0,0,0,0,0,0,0},
-                            {0,0,0,0,0,0,0,0,0,0,0,0},
-                            {0,0,-1,0,0,0,0,0,0,0,0,0},
-                            {0,0,0,0,0,0,0,-1,-1,0,0,0},
-                            {0,0,0,0,0,0,0,0,0,-1,0,0},
-                            {0,0,0,0,-1,0,0,0,0,0,0,0},
-                            {0,0,0,0,0,0,0,0,0,0,0,0},
-                            {0,0,0,0,0,0,-1,0,0,0,0,0},
-                            {0,0,-1,-1,0,0,0,0,0,0,0,0},
-                            {0,0,0,0,-1,-1,0,0,0,0,0,0},
-                            {0,0,-1,0,0,0,0,0,0,0,0,0},
-                            {0,0,0,0,0,0,0,0,0,0,0,0}};
+    int polje2d [12][12];
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    default_random_engine generator(seed);
+    uniform_int_distribution<int> distribution(1,10);
+
+    for (int i = 0; i < 12; i++)
+    {
+        for (int j = 0; j < 12; j++)
+        {
+            polje2d[i][j] = 0;
+        }
+    }
+
+    int redak, stupac;
+    int postavljanje_mine = 0;
+    while (postavljanje_mine < 10)
+    {
+        redak = distribution(generator);
+        stupac = distribution(generator);
+        // cout << redak << " " << stupac << endl;
+
+        if (polje2d[redak][stupac] != -1)
+        {
+            polje2d[redak][stupac] = -1;
+            postavljanje_mine ++;
+        }
+    }
+
     int polje_br_mina [12][12];
     for (int i = 1; i < 11; i++)
     {
@@ -36,8 +54,9 @@ int main ()
 
         cout << endl;
     }
-    int redak = 0;
-    int stupac = 0;
+    redak = 0;
+    stupac = 0;
+    int broj_otvorenih = 0;
     while(1)
     {
         cout << endl;
@@ -79,13 +98,19 @@ int main ()
             cout << "GAME OVER!!" << endl;
             break;
         }
-        cout << "redak: ";
+        cout << "Unesite redak koji zelite igrati: ";
         cin >> redak;
-        cout << "stupac: ";
+        cout << "Unesite stupac koji zelite igrati: ";
         cin >> stupac;
-        if( polje2d[redak][stupac] != -1)
+        if( polje2d[redak][stupac] != -1 )
         {
-           polje2d[redak][stupac] = 1;
+            polje2d [redak][stupac] = 1;
+            broj_otvorenih ++;
+        }
+        if(broj_otvorenih >= 90)
+        {
+            cout << "Igrac je pobjedio" << endl;
+            break;
         }
     }
 }
