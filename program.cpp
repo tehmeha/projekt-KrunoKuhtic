@@ -2,6 +2,7 @@
 #include <math.h>
 #include <random>
 #include <chrono>
+#include <fstream>
 using namespace std;
 
 int main ()
@@ -92,6 +93,7 @@ int main ()
 
             }
             cout << endl;
+
         }
         if(polje2d[redak][stupac] == -1)
         {
@@ -100,6 +102,21 @@ int main ()
         }
         cout << "Unesite redak koji zelite igrati: ";
         cin >> redak;
+        if( redak == 0 )
+        {
+           cout << "Game Saved!" << endl;
+           ofstream dat;
+           dat.open("minolovac.data");
+           for(int i=0;i<12;i++)
+           {
+               for(int j=0;j<12;j++)
+               {
+                   dat << polje2d[i][j] << ",";
+               }
+               dat << endl;
+            }
+           dat.close();
+        }
         cout << "Unesite stupac koji zelite igrati: ";
         cin >> stupac;
         if( polje2d[redak][stupac] != -1 )
@@ -112,6 +129,6 @@ int main ()
             cout << "Igrac je pobjedio" << endl;
             break;
         }
+        }
     }
-}
 
