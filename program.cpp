@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <math.h>
 #include <random>
@@ -8,6 +9,7 @@ using namespace std;
 int main ()
 {
     int polje2d [12][12];
+    int redak, stupac, odluka;
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     default_random_engine generator(seed);
     uniform_int_distribution<int> distribution(1,10);
@@ -20,24 +22,59 @@ int main ()
         }
     }
 
-    int redak, stupac;
-    int postavljanje_mine = 0;
-    while (postavljanje_mine < 10)
+    cout << "Ako zelite spremiti igru napisite 0 za redak. " <<endl;
+    cout << "Da li zelite ucitati staru igru (0 - NE, 1 - DA)? ";
+    cin >> odluka;
+    if(odluka == 1)
     {
-        redak = distribution(generator);
-        stupac = distribution(generator);
-        // cout << redak << " " << stupac << endl;
-
-        if (polje2d[redak][stupac] != -1)
+        ifstream dat;
+        dat.open("minolovac.data", ios::in);
+        char c;
+        int a;
+        for (int i = 0; i < 12; i++)
         {
-            polje2d[redak][stupac] = -1;
-            postavljanje_mine ++;
+            for (int j = 0; j < 12; j++)
+            {
+                dat >> a >> c;
+                polje2d[i][j] = a;
+            }
+        }
+        dat.close();
+    }
+    else
+    {
+        int postavljanje_mine = 0;
+        while (postavljanje_mine < 10)
+        {
+            redak = distribution(generator);
+            stupac = distribution(generator);
+            // cout << redak << " " << stupac << endl;
+
+            if (polje2d[redak][stupac] != -1)
+            {
+                polje2d[redak][stupac] = -1;
+                postavljanje_mine ++;
+            }
         }
     }
 
+    cout << endl;
+    cout << "    ";
+    for (int i = 1; i < 11; i++)
+    {
+        cout << i << "   ";
+    }
+    cout << endl;
+    for (int i = 1; i < 43; i++)
+    {
+        cout << "-" ;
+    }
+    cout << endl;
     int polje_br_mina [12][12];
     for (int i = 1; i < 11; i++)
     {
+        if(i < 10 ) cout << i << " | ";
+        else cout << i << "| ";
         for (int j = 1; j < 11; j++)
         {
             if (polje2d[i][j] == -1)
@@ -46,9 +83,17 @@ int main ()
             }
             else
             {
-                int broj_mina = fabs(polje2d [i-1][j-1] + polje2d[i][j-1] + polje2d[i+1][j-1] + polje2d[i-1][j] +
-                                     polje2d[i+1][j] + polje2d[i-1][j+1] + polje2d[i][j+1] + polje2d[i+1][j+1]);
-                polje_br_mina[i][j]=broj_mina;
+                int broj_mina = 0;
+                if( polje2d [i-1][j-1] == -1) broj_mina++;
+                if( polje2d [i][j-1] == -1) broj_mina++;
+                if( polje2d [i+1][j-1] == -1) broj_mina++;
+                if( polje2d [i-1][j] == -1) broj_mina++;
+                if( polje2d [i+1][j] == -1) broj_mina++;
+                if( polje2d [i-1][j+1] == -1) broj_mina++;
+                if( polje2d [i][j+1] == -1) broj_mina++;
+                if( polje2d [i+1][j+1] == -1) broj_mina++;
+
+                polje_br_mina[i][j] = broj_mina;
                 cout << broj_mina << "   "; //! ispisuje broj mina u susjedstvu
             }
         }
@@ -129,6 +174,6 @@ int main ()
             cout << "Igrac je pobjedio" << endl;
             break;
         }
-        }
-    }
 
+    }
+}
